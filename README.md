@@ -8,4 +8,4 @@ USTC timetable to calendar ics file 中国科学技术大学教务课程表转�
 
 # 怎么导出到……
 win10日历、outlook可以直接导入
-**Google日历网页版**直接上传ics导入**不行**，**要通过网址**添加，例如可以把ics文件托管在github pages上然后在Google日历中添加
+**Google日历网页版**直接上传ics导入**不行**，**要通过网址**添加，例如可以把ics文件托管在github pages上然后在Google日历中添加（这样无法添加到主日程表）。如果需要配合安卓勿扰功能，需要用手机版Google日历APP打开ics文件并导入。
