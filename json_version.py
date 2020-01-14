@@ -39,20 +39,16 @@ for c in x['studentTableVm']['activities']:
     sMin = int(c['startDate'].split(':')[1])
     eHour=int(c['endDate'].split(':')[0])
     eMin = int(c['endDate'].split(':')[1])
-    weeks=[]
-    if status==0:
-        weeks.extend(range(startWeek-1,endWeek))
-    else:
-        weeks.extend(range(startWeek-1, endWeek ,2))
-    for i in weeks:
-        event = Event()
-        event.add('summary', summary)
-        event.add('location', location)
-        event.add('description', description)
-        event.add('dtstart',FIRST+timedelta(days=weekday,weeks=i,hours=sHour,minutes=sMin))
-        event.add('dtend', FIRST+timedelta(days=weekday,weeks=i,hours=eHour,minutes=eMin))
-        event.add('dtstamp', FIRST+timedelta(days=weekday,weeks=i,hours=sHour,minutes=sMin))
-        cal.add_component(event)
+    event = Event()
+    event.add('summary', summary)
+    event.add('location', location)
+    event.add('description', description)
+    event.add('dtstart',FIRST+timedelta(days=weekday,weeks=startWeek-1,hours=sHour,minutes=sMin))
+    event.add('dtend', FIRST+timedelta(days=weekday,weeks=startWeek-1,hours=eHour,minutes=eMin))
+    event.add('dtstamp', datetime.utcnow())
+    interval = 2 if status else 1
+    event.add('rrule', {'freq': 'weekly', 'interval': interval, 'count': (endWeek - startWeek) // interval + 1})
+    cal.add_component(event)
 f = open('example.ics', 'wb')
 f.write(cal.to_ical())
 f.close()
