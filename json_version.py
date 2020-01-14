@@ -11,7 +11,7 @@ cal.add('TZID','Asia/Shanghai')
 cal.add('X-WR-TIMEZONE','Asia/Shanghai')
 
 MODE = "CN"
-FIRST = datetime.strptime("2019-09-01 00:00:00","%Y-%m-%d %H:%M:%S").astimezone(timezone("Asia/Shanghai"))  # 学期第一周的周日，即开学前一天
+FIRST = datetime.strptime("2020-02-16 00:00:00","%Y-%m-%d %H:%M:%S").astimezone(timezone("Asia/Shanghai"))  # 学期第一周的周日，即开学前一天
 
 s = str(open("1.json", 'r', encoding='UTF-8').readlines())
 xx = demjson.decode(s)
@@ -21,8 +21,8 @@ print(x['studentTableVm']['name'], x['studentTableVm']['code'], x['studentTableV
 ii = 0
 for c in x['studentTableVm']['activities']:
     summary = c['courseName']
-    location = " ".join([c['campus'], c['room']])
-    description = " ".join([c['campus'], c['building'], " ".join(c['teachers']), c['weeksStr'] + "周", c['lessonCode'],
+    location = " ".join([c['campus'] or c['customPlace'], c['room'] or ''])
+    description = " ".join([c['campus'] or c['customPlace'], c['building'] or '', " ".join(c['teachers']), c['weeksStr'] + "周", c['lessonCode'],
                             str(c['credits']) + '学分'])
     status = 0  # 0每周 1单周 2双周
     weeksStr = str(c['weeksStr'])
